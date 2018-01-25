@@ -2,7 +2,7 @@ var sensor = require('node-dht-sensor');
 var gardenconfig = require('config.json');
 
 
-var temperaturereturn = function() {
+/*var temperaturereturn = function() {
 return new Promise((resolve, reject) => {
     console.log('Starting Temperature...');
         sensor.read(11, 4, function(err, temperature, humidity) {
@@ -15,9 +15,9 @@ return new Promise((resolve, reject) => {
         });
 }).then(function(data){
     return data
-});
+});*/
 
 console.log("Starting gathering...");
-Promise.all([temperaturereturn()]).then(function (data){
-            console.log('The Temperature is ' + data[0] + '°C');
-        });
+//Promise.all([temperaturereturn()]).then(function (data){
+//            console.log('The Temperature is ' + data[0] + '°C');
+//        });
