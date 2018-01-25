@@ -20,4 +20,3 @@ return new Promise((resolve, reject) => {
 Promise.all([temperaturereturn()]).then(function (data){
             console.log('The Temperature is ' + data[0] + '°C');
         });
-
