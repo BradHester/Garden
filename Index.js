@@ -17,6 +17,7 @@ return new Promise((resolve, reject) => {
     return data
 });
 
+console.log("Starting gathering...");
 Promise.all([temperaturereturn()]).then(function (data){
             console.log('The Temperature is ' + data[0] + '°C');
         });
