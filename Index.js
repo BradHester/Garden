@@ -10,7 +10,7 @@ return new Promise((resolve, reject) => {
                 console.log('temp: ' + temperature.toFixed(1) + '°C, ' +
                    'humidity: ' + humidity.toFixed(1) + '%'
                 );
-                let response = temperature.toFixed(1);
+                var response = temperature.toFixed(1);
                 console.log(response);
                 resolve(response);
                 }
