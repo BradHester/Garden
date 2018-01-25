@@ -1,0 +1,8 @@
+{
+  "name": "Garden Integration",
+  "thingspeak": {
+    "APIURL": "https://184.106.153.149/update?key=MR4MN34WUXHGA29Q",
+    "TemperatureFieldName": "Field1",
+    "HumidityFieldName": "Field2"
+    }
+  }
