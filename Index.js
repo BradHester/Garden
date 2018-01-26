@@ -1,7 +1,21 @@
 var sensor = require('node-dht-sensor');
-var gardenconfig = require('config.json');
+var fs = require('fs');
 
 
+//var gardenconfig = require('config.json');
+
+
+
+
+console.log("Starting gathering...");
+//Promise.all([temperaturereturn()]).then(function (data){
+//            console.log('The Temperature is ' + data[0] + '°C');
+//        });
+
+var contents = fs.readFileSync('config.json');
+var gardenconfig = JSON.parse(contents);
+
+console.log('Temperature field Name: ' + gardenconfig.thingspeak.TemperatureFieldName);
 /*var temperaturereturn = function() {
 return new Promise((resolve, reject) => {
     console.log('Starting Temperature...');
@@ -16,8 +30,3 @@ return new Promise((resolve, reject) => {
 }).then(function(data){
     return data
 });*/
-
-console.log("Starting gathering...");
-//Promise.all([temperaturereturn()]).then(function (data){
-//            console.log('The Temperature is ' + data[0] + '°C');
-//        });
