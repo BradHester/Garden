@@ -30,3 +30,5 @@ return new Promise((resolve, reject) => {
 }).then(function(data){
     return data
 });
+};
+
