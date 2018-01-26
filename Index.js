@@ -1,7 +1,8 @@
 var sensor = require('node-dht-sensor');
 var fs = require('fs');
 var https = require('https');
-const now = new Date();
+var cron = require('node-schedule');
+
 
 var temperaturereturn = function() {
 return new Promise((resolve, reject) => {
@@ -33,9 +34,11 @@ return new Promise((resolve, reject) => {
 });
 };
 
+
 var rule = new cron.RecurrenceRule();
-rule.second = 00;
+rule.second = 0;
 cron.scheduleJob(rule, function(){
+    const now = new Date();
 
     console.log('****************************************************');
     console.log(now + " - Starting gathering...");
