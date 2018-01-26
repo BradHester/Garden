@@ -8,13 +8,13 @@ var fs = require('fs');
 
 
 console.log("Starting gathering...");
-//Promise.all([temperaturereturn()]).then(function (data){
-//      console.log('The Temperature is ' + data[0] + '°C');
+Promise.all([temperaturereturn()]).then(function (data){
+      console.log('The Temperature is ' + data[0] + '°C');
         var contents = fs.readFileSync('config.json');
         var gardenconfig = JSON.parse(contents);
 
-console.log('Temperature field Name: ' + gardenconfig.thingspeak.TemperatureFieldName);
-//        });
+        console.log('Temperature field Name: ' + gardenconfig.thingspeak.TemperatureFieldName);
+        });
 
 var temperaturereturn = function() {
 return new Promise((resolve, reject) => {
