@@ -44,12 +44,12 @@ Promise.all([temperaturereturn(),humidityreturn()]).then(function (data){
         var updatestring = gardenconfig.thingspeak.APIURL + '&' +  gardenconfig.thingspeak.TemperatureFieldName + '=' + data[0] + '&' +  gardenconfig.thingspeak.HumidityFieldName + '=' + data[1];
         console.log('Updating Thingspeak with: ' + updatestring);
 
-       // https.get(updatestring + , (response) => {
-        //response.on('data', (d) => {
-        //    var parsed = JSON.parse(d);
-        //    console.log(parsed);
-        // });
-        //});
+        https.get(updatestring, (response) => {
+        response.on('data', (d) => {
+            var parsed = JSON.parse(d);
+            console.log(parsed);
+         });
+        });
 
 
         });
