@@ -46,8 +46,8 @@ Promise.all([temperaturereturn(),humidityreturn()]).then(function (data){
 
         https.get(updatestring, (response) => {
         response.on('data', (d) => {
-            //var parsed = JSON.parse(d);
-            console.log(d);
+            var parsed = JSON.parse(d);
+            console.log(' Channel updated with entry: ' + parsed);
          });
         });
 
