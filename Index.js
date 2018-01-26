@@ -37,7 +37,7 @@ return new Promise((resolve, reject) => {
 
 var rule = new cron.RecurrenceRule();
 //rule.second = 0;
-cron.scheduleJob('/5 * * * * *', function(){
+cron.scheduleJob('*/5 * * * *', function(){
     const now = new Date();
 
     console.log('****************************************************');
@@ -47,19 +47,18 @@ cron.scheduleJob('/5 * * * * *', function(){
         var contents = fs.readFileSync('config.json');
         var gardenconfig = JSON.parse(contents);
 
-        //console.log('Temperature field Name: ' + gardenconfig.thingspeak.TemperatureFieldName + ' and temperature is ' + data[0]);
-        //console.log('Humidity field Name: ' + gardenconfig.thingspeak.HumidityFieldName + ' and humidity is ' + data[1]);
 
             var updatestring = gardenconfig.thingspeak.APIURL + '&' +  gardenconfig.thingspeak.TemperatureFieldName + '=' + data[0] + '&' +  gardenconfig.thingspeak.HumidityFieldName + '=' + data[1];
-            console.log('Updating Thingspeak with: ' + updatestring);
-
+            console.log('Updating Thingspeak with: ');
+            console.log(updatestring);
             https.get(updatestring, (response) => {
                 response.on('data', (d) => {
                     var parsed = JSON.parse(d);
                     console.log('Channel updated with entry: ' + parsed);
 
                 });
-            });
+            }).on('error', (e) => {
+                console.error(e);
+              });
         });
 });
-
