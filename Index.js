@@ -33,26 +33,30 @@ return new Promise((resolve, reject) => {
 });
 };
 
-console.log('****************************************************');
-console.log(now + " - Starting gathering...");
-Promise.all([temperaturereturn(),humidityreturn()]).then(function (data){
-    //console.log('The Temperature is ' + data[0] + '°C');
-    var contents = fs.readFileSync('config.json');
-    var gardenconfig = JSON.parse(contents);
+var rule = new cron.RecurrenceRule();
+rule.second = 00;
+cron.scheduleJob(rule, function(){
 
-    //console.log('Temperature field Name: ' + gardenconfig.thingspeak.TemperatureFieldName + ' and temperature is ' + data[0]);
-    //console.log('Humidity field Name: ' + gardenconfig.thingspeak.HumidityFieldName + ' and humidity is ' + data[1]);
+    console.log('****************************************************');
+    console.log(now + " - Starting gathering...");
+    Promise.all([temperaturereturn(),humidityreturn()]).then(function (data){
+        //console.log('The Temperature is ' + data[0] + '°C');
+        var contents = fs.readFileSync('config.json');
+        var gardenconfig = JSON.parse(contents);
 
-        var updatestring = gardenconfig.thingspeak.APIURL + '&' +  gardenconfig.thingspeak.TemperatureFieldName + '=' + data[0] + '&' +  gardenconfig.thingspeak.HumidityFieldName + '=' + data[1];
-        console.log('Updating Thingspeak with: ' + updatestring);
+        //console.log('Temperature field Name: ' + gardenconfig.thingspeak.TemperatureFieldName + ' and temperature is ' + data[0]);
+        //console.log('Humidity field Name: ' + gardenconfig.thingspeak.HumidityFieldName + ' and humidity is ' + data[1]);
 
-        https.get(updatestring, (response) => {
-            response.on('data', (d) => {
-                var parsed = JSON.parse(d);
-                console.log('Channel updated with entry: ' + parsed);
+            var updatestring = gardenconfig.thingspeak.APIURL + '&' +  gardenconfig.thingspeak.TemperatureFieldName + '=' + data[0] + '&' +  gardenconfig.thingspeak.HumidityFieldName + '=' + data[1];
+            console.log('Updating Thingspeak with: ' + updatestring);
 
-             });
+            https.get(updatestring, (response) => {
+                response.on('data', (d) => {
+                    var parsed = JSON.parse(d);
+                    console.log('Channel updated with entry: ' + parsed);
+
+                });
+            });
         });
-    });
-
+});
 
