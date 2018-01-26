@@ -36,8 +36,8 @@ return new Promise((resolve, reject) => {
 
 
 var rule = new cron.RecurrenceRule();
-rule.second = 0;
-cron.scheduleJob(rule, function(){
+//rule.second = 0;
+cron.scheduleJob('/5 * * * * *', function(){
     const now = new Date();
 
     console.log('****************************************************');
