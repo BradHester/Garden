@@ -1,6 +1,7 @@
 var sensor = require('node-dht-sensor');
 var fs = require('fs');
 var https = require('https');
+const now = new Date();
 
 var temperaturereturn = function() {
 return new Promise((resolve, reject) => {
@@ -32,26 +33,26 @@ return new Promise((resolve, reject) => {
 });
 };
 
-console.log("Starting gathering...");
+console.log('****************************************************');
+console.log(now + " - Starting gathering...");
 Promise.all([temperaturereturn(),humidityreturn()]).then(function (data){
-      //console.log('The Temperature is ' + data[0] + '°C');
-        var contents = fs.readFileSync('config.json');
-        var gardenconfig = JSON.parse(contents);
+    //console.log('The Temperature is ' + data[0] + '°C');
+    var contents = fs.readFileSync('config.json');
+    var gardenconfig = JSON.parse(contents);
 
-        //console.log('Temperature field Name: ' + gardenconfig.thingspeak.TemperatureFieldName + ' and temperature is ' + data[0]);
-        //console.log('Humidity field Name: ' + gardenconfig.thingspeak.HumidityFieldName + ' and humidity is ' + data[1]);
+    //console.log('Temperature field Name: ' + gardenconfig.thingspeak.TemperatureFieldName + ' and temperature is ' + data[0]);
+    //console.log('Humidity field Name: ' + gardenconfig.thingspeak.HumidityFieldName + ' and humidity is ' + data[1]);
 
         var updatestring = gardenconfig.thingspeak.APIURL + '&' +  gardenconfig.thingspeak.TemperatureFieldName + '=' + data[0] + '&' +  gardenconfig.thingspeak.HumidityFieldName + '=' + data[1];
         console.log('Updating Thingspeak with: ' + updatestring);
 
         https.get(updatestring, (response) => {
-        response.on('data', (d) => {
-            var parsed = JSON.parse(d);
-            console.log(' Channel updated with entry: ' + parsed);
-         });
-        });
+            response.on('data', (d) => {
+                var parsed = JSON.parse(d);
+                console.log('Channel updated with entry: ' + parsed);
 
-
+             });
         });
+    });
 
 
