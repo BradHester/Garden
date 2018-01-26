@@ -20,7 +20,7 @@ return new Promise((resolve, reject) => {
 
 var humidityreturn = function() {
 return new Promise((resolve, reject) => {
-    console.log('Starting Temperature...');
+    console.log('Starting humidity...');
         sensor.read(11, 4, function(err, temperature, humidity) {
          if (!err) {
                 var response = humidity.toFixed(1);
@@ -37,13 +37,13 @@ return new Promise((resolve, reject) => {
 //var gardenconfig = require('config.json');
 
 console.log("Starting gathering...");
-Promise.all([temperaturereturn()]).then(function (data){
+Promise.all([temperaturereturn(),humidityreturn()]).then(function (data){
       console.log('The Temperature is ' + data[0] + '°C');
         var contents = fs.readFileSync('config.json');
         var gardenconfig = JSON.parse(contents);
 
-        console.log('Temperature field Name: ' + gardenconfig.thingspeak.TemperatureFieldName);
-        console.log('Humidity field Name: ' + gardenconfig.thingspeak.HumidityFieldName);
+        console.log('Temperature field Name: ' + gardenconfig.thingspeak.TemperatureFieldName + ' and temperature is ' + data[0]);
+        console.log('Humidity field Name: ' + gardenconfig.thingspeak.HumidityFieldName + ' and humidity is ' + data[1]);
 
         });
 
