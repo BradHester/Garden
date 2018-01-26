@@ -7,7 +7,7 @@ return new Promise((resolve, reject) => {
     console.log('Starting Temperature...');
         sensor.read(11, 4, function(err, temperature, humidity) {
          if (!err) {
-                var response = temperature.toFixed(1);
+                var response = temperature.toFixed(0);
                 console.log('Returning Temperature: ' + response);
                 resolve(response);
                 }
@@ -22,7 +22,7 @@ return new Promise((resolve, reject) => {
     console.log('Starting humidity...');
         sensor.read(11, 4, function(err, temperature, humidity) {
          if (!err) {
-                var response = humidity.toFixed(1);
+                var response = humidity.toFixed(0);
                 console.log('Returning Humidity: ' + response);
                 resolve(response);
                 }
@@ -46,8 +46,8 @@ Promise.all([temperaturereturn(),humidityreturn()]).then(function (data){
 
         https.get(updatestring, (response) => {
         response.on('data', (d) => {
-            var parsed = JSON.parse(d);
-            console.log(parsed);
+            //var parsed = JSON.parse(d);
+            console.log(d);
          });
         });
 
