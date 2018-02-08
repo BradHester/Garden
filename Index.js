@@ -74,5 +74,3 @@ cron.scheduleJob('*/5 * * * *', function(){
               });
         });
 });
-
-module.exports.favoriteAuthor = favoriteAuthor;
