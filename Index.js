@@ -34,6 +34,14 @@ return new Promise((resolve, reject) => {
 });
 };
 
+function isJson(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}
 
 var rule = new cron.RecurrenceRule();
 //rule.second = 0;
@@ -53,12 +61,18 @@ cron.scheduleJob('*/5 * * * *', function(){
             console.log(updatestring);
             https.get(updatestring, (response) => {
                 response.on('data', (d) => {
-                    var parsed = JSON.parse(d);
-                    console.log('Channel updated with entry: ' + parsed);
-
+                    if (isJson(d)) {
+                      var parsed = JSON.parse(d);
+                      console.log('Channel updated with entry: ' + parsed);
+                    }
+                    else {
+                      console.log('Error occurred updating Thingspeak');
+                    }
                 });
             }).on('error', (e) => {
                 console.error(e);
               });
         });
 });
+
+module.exports.favoriteAuthor = favoriteAuthor;
