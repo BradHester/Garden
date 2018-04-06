@@ -6,11 +6,11 @@ var cron = require('node-schedule');
 
 var readingreturn = function() {
 return new Promise((resolve, reject) => {
-    console.log('Starting Temperature...');
+    console.log('Starting Reading...');
         sensor.read(11, 4, function(err, temperature, humidity) {
          if (!err) {
-                var response = [temperature.toFixed(0), humidity.toFixed(0)] ;
-                console.log('Returning Temperature: ' + response);
+                var response[] = [temperature.toFixed(0), humidity.toFixed(0)] ;
+                console.log('Returning Temperature: ' + response[0] + ' & Humidity: ' + response[1]);
                 resolve(response);
                 }
         });
