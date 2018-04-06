@@ -39,7 +39,8 @@ cron.scheduleJob('*/1 * * * *', function(){
 
     console.log('****************************************************');
     console.log(now + " - Starting gathering...");
-    Promise(readingreturn()).then(function (data){
+    var initialisepromise = readingreturn();
+    initialisepromise.then(function (data){
         //console.log('The Temperature is ' + data[0] + '°C');
         var contents = fs.readFileSync('config.json');
         var gardenconfig = JSON.parse(contents);
