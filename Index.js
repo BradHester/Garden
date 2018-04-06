@@ -39,11 +39,11 @@ cron.scheduleJob('*/1 * * * *', function(){
     console.log(now + " - Starting gathering...");
     var initialisepromise = readingreturn();
     initialisepromise.then(function (data){
+      console.log('Updating Thingspeak with: ');
+
         var contents = fs.readFileSync('config.json');
         var gardenconfig = JSON.parse(contents);
-
             var updatestring = gardenconfig.thingspeak.APIURL + '&' +  gardenconfig.thingspeak.TemperatureFieldName + '=' + data[0] + '&' +  gardenconfig.thingspeak.HumidityFieldName + '=' + data[1];
-            console.log('Updating Thingspeak with: ');
             console.log(updatestring);
             https.get(updatestring, (response) => {
                 response.on('data', (d) => {
