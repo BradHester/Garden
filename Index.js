@@ -8,7 +8,6 @@ var readingreturn = function() {
 return new Promise((resolve, reject) => {
     console.log('Starting Reading...');
         sensor.read(11, 4, function(err, temperature, humidity) {
-        //  console.log('Read sensor');
          if (!err) {
                 var response = [];
                 response[0] = temperature.toFixed(0);
@@ -32,22 +31,16 @@ function isJson(str) {
     return true;
 }
 
-//---------------------------
 var rule = new cron.RecurrenceRule();
-//rule.second = 0;
-//cron.scheduleJob('*/5 * * * *', function(){
-//--------------------------
-cron.scheduleJob('*/1 * * * *', function(){
+cron.scheduleJob('*/5 * * * *', function(){
     const now = new Date();
 
     console.log('****************************************************');
     console.log(now + " - Starting gathering...");
     var initialisepromise = readingreturn();
     initialisepromise.then(function (data){
-        //console.log('The Temperature is ' + data[0] + '°C');
         var contents = fs.readFileSync('config.json');
         var gardenconfig = JSON.parse(contents);
-            console.log(data);
 
             var updatestring = gardenconfig.thingspeak.APIURL + '&' +  gardenconfig.thingspeak.TemperatureFieldName + '=' + data[0] + '&' +  gardenconfig.thingspeak.HumidityFieldName + '=' + data[1];
             console.log('Updating Thingspeak with: ');
@@ -66,5 +59,4 @@ cron.scheduleJob('*/1 * * * *', function(){
                 console.error(e);
               });
         });
-//----------------------------
 });
