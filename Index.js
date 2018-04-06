@@ -4,12 +4,12 @@ var https = require('https');
 var cron = require('node-schedule');
 
 
-var temperaturereturn = function() {
+var readingreturn = function() {
 return new Promise((resolve, reject) => {
     console.log('Starting Temperature...');
         sensor.read(11, 4, function(err, temperature, humidity) {
          if (!err) {
-                var response = temperature.toFixed(0);
+                var response = [temperature.toFixed(0), humidity.toFixed(0)] ;
                 console.log('Returning Temperature: ' + response);
                 resolve(response);
                 }
@@ -19,20 +19,6 @@ return new Promise((resolve, reject) => {
 });
 };
 
-var humidityreturn = function() {
-return new Promise((resolve, reject) => {
-    console.log('Starting humidity...');
-        sensor.read(11, 4, function(err, temperature, humidity) {
-         if (!err) {
-                var response = humidity.toFixed(0);
-                console.log('Returning Humidity: ' + response);
-                resolve(response);
-                }
-        });
-}).then(function(data){
-    return data
-});
-};
 
 function isJson(str) {
     try {
@@ -50,11 +36,11 @@ cron.scheduleJob('*/5 * * * *', function(){
 
     console.log('****************************************************');
     console.log(now + " - Starting gathering...");
-    Promise.all([temperaturereturn(),humidityreturn()]).then(function (data){
+    Promise.all([readingreturn()]).then(function (data){
         //console.log('The Temperature is ' + data[0] + '°C');
         var contents = fs.readFileSync('config.json');
         var gardenconfig = JSON.parse(contents);
-
+            console.log(data);
 
             var updatestring = gardenconfig.thingspeak.APIURL + '&' +  gardenconfig.thingspeak.TemperatureFieldName + '=' + data[0] + '&' +  gardenconfig.thingspeak.HumidityFieldName + '=' + data[1];
             console.log('Updating Thingspeak with: ');
