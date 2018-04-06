@@ -32,7 +32,7 @@ function isJson(str) {
 var rule = new cron.RecurrenceRule();
 //rule.second = 0;
 //cron.scheduleJob('*/5 * * * *', function(){
-cron.scheduleJob('*/6 * * * *', function(){
+cron.scheduleJob('*/1 * * * *', function(){
     const now = new Date();
 
     console.log('****************************************************');
@@ -43,7 +43,7 @@ cron.scheduleJob('*/6 * * * *', function(){
         var gardenconfig = JSON.parse(contents);
             console.log(data);
 
-            var updatestring = gardenconfig.thingspeak.APIURL + '&' +  gardenconfig.thingspeak.TemperatureFieldName + '=' + data[0] + '&' +  gardenconfig.thingspeak.HumidityFieldName + '=' + data[1];
+            var updatestring = gardenconfig.thingspeak.APIURL + '&' +  gardenconfig.thingspeak.TemperatureFieldName + '=' + data[0].[0] + '&' +  gardenconfig.thingspeak.HumidityFieldName + '=' + data[0].[1];
             console.log('Updating Thingspeak with: ');
             console.log(updatestring);
             https.get(updatestring, (response) => {
