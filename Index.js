@@ -9,7 +9,9 @@ return new Promise((resolve, reject) => {
     console.log('Starting Reading...');
         sensor.read(11, 4, function(err, temperature, humidity) {
          if (!err) {
-                var response[] = [temperature.toFixed(0), humidity.toFixed(0)] ;
+                var response = [];
+                response[0] = temperature.toFixed(0);
+                response[1] = humidity.toFixed(0);
                 console.log('Returning Temperature: ' + response[0] + ' & Humidity: ' + response[1]);
                 resolve(response);
                 }
