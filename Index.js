@@ -37,13 +37,13 @@ cron.scheduleJob('*/1 * * * *', function(){
 
     console.log('****************************************************');
     console.log(now + " - Starting gathering...");
-    Promise.all([readingreturn()]).then(function (data){
+    Promise.all(readingreturn()).then(function (data){
         //console.log('The Temperature is ' + data[0] + '°C');
         var contents = fs.readFileSync('config.json');
         var gardenconfig = JSON.parse(contents);
             console.log(data);
 
-            var updatestring = gardenconfig.thingspeak.APIURL + '&' +  gardenconfig.thingspeak.TemperatureFieldName + '=' + data[0].[0] + '&' +  gardenconfig.thingspeak.HumidityFieldName + '=' + data[0].[1];
+            var updatestring = gardenconfig.thingspeak.APIURL + '&' +  gardenconfig.thingspeak.TemperatureFieldName + '=' + data[0] + '&' +  gardenconfig.thingspeak.HumidityFieldName + '=' + data[0].[1];
             console.log('Updating Thingspeak with: ');
             console.log(updatestring);
             https.get(updatestring, (response) => {
