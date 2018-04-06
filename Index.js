@@ -32,7 +32,7 @@ function isJson(str) {
 }
 
 var rule = new cron.RecurrenceRule();
-cron.scheduleJob('*/5 * * * *', function(){
+cron.scheduleJob('*/1 * * * *', function(){
     const now = new Date();
 
     console.log('****************************************************');
