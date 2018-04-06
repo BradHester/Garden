@@ -8,7 +8,7 @@ var readingreturn = function() {
 return new Promise((resolve, reject) => {
     console.log('Starting Reading...');
         sensor.read(11, 4, function(err, temperature, humidity) {
-          console.log('Read sensor');
+        //  console.log('Read sensor');
          if (!err) {
                 var response = [];
                 response[0] = temperature.toFixed(0);
@@ -32,10 +32,12 @@ function isJson(str) {
     return true;
 }
 
-//---------------------------var rule = new cron.RecurrenceRule();
+//---------------------------
+var rule = new cron.RecurrenceRule();
 //rule.second = 0;
 //cron.scheduleJob('*/5 * * * *', function(){
-//--------------------------cron.scheduleJob('*/1 * * * *', function(){
+//--------------------------
+cron.scheduleJob('*/1 * * * *', function(){
     const now = new Date();
 
     console.log('****************************************************');
@@ -64,4 +66,5 @@ function isJson(str) {
                 console.error(e);
               });
         });
-//----------------------------});
+//----------------------------
+});
