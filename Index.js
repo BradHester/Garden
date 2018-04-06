@@ -43,7 +43,7 @@ cron.scheduleJob('*/1 * * * *', function(){
         var gardenconfig = JSON.parse(contents);
             console.log(data);
 
-            var updatestring = gardenconfig.thingspeak.APIURL + '&' +  gardenconfig.thingspeak.TemperatureFieldName + '=' + data[0] + '&' +  gardenconfig.thingspeak.HumidityFieldName + '=' + data[0].[1];
+            var updatestring = gardenconfig.thingspeak.APIURL + '&' +  gardenconfig.thingspeak.TemperatureFieldName + '=' + data[0] + '&' +  gardenconfig.thingspeak.HumidityFieldName + '=' + data[1];
             console.log('Updating Thingspeak with: ');
             console.log(updatestring);
             https.get(updatestring, (response) => {
