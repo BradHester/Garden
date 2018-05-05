@@ -22,6 +22,7 @@ return new Promise((resolve, reject) => {
 };
 
 
+
 function isJson(str) {
     try {
         JSON.parse(str);
